@@ -30,45 +30,123 @@ generateBtn.addEventListener("click", writePassword);
 // WHEN the password is generated
 // THEN the password is either displayed in an alert or written to the page
 
-function generatePassword() {
-  
-  //initial variables when ---Generate Password--- clicked.
-  var password = "";
-  var characterNo;
-  var lowercase;
-  var uppercase;
-  var numeric;
-  var specialCharacter;
-   // Let user enter an integer number of how many characters to be used...
-   characterNo = parseInt(prompt("    To generate a password: \n1. Provide a number of how many characters you would like your password to be of.\n 2. The lenght of password should consist of at least 8 characters and no more than 128 characters."));
-  
-   // user pressed OK, but the input field is empty
-   if (characterNo === "") {
-    alert("You entered blank space \n! Enter a number between: 8 - 128.");
-    generatePassword();
-   } else if (characterNo) {
-     
-      // If entered number don't meet required value.
-      while (characterNo < 8 || characterNo > 128) {
-        alert("   Attention: \n1. The lenght of password should consist of at least 8 characters and no more than 128 characters. \n2. Next time enter a number between: 8 - 128!!!");
-      return;
-      }
-    // Details of generated password
-     var information = alert("1. Following prompts will ask you what type of characters to use. \n2. !!! To successfully generate the password, at least one of the following prompts - 'character type' should be clicked as  ---OK---   !!! ")
-    // lowercase character question
-     var lowercase = prompt("     ----lowercase---- \nDo you like your password to include  ---lowercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
-    // UPPERCASE characters QUESTION
-     var uppercase = prompt("     ----UPPERCASE---- \nDo you like your password to include  ---uppercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
-    // numeric character question
-     var numeric = prompt("     ----Numbers---- \nDo you like your password to include  ---numeric---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
-    // special character  question
-     var specialCharacter = prompt("      ----Special characters---- \nDo you like your password to include  ---Special characters---  ? \nClick 'OK - for YES' and 'Cancel - for No'");
-   } else {
-    alert("  Canceled/Wrong character: \n1. Try again by clicking 'GENERATE PASSWORD' \n2. Make sure to enter a number between: 8 - 128 next time.");
-    return;
-   }
-
-  
-   
-
+//Pick Random characters from the available elements
+function getRandomLower() {
+  var possibleLowercase = "abcdefghijklmnopqrstuvwxyz";
+  return possibleLowercase[Math.floor(Math.random() * possibleLowercase.length)];
 }
+
+function getRandomUpper() {
+  var possibleUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return possibleUppercase[Math.floor(Math.random() * possibleUppercase.length)];
+}
+
+function getRandomNumber() {
+  var possibleNumber = "0123456789";
+  return possibleNumber[Math.floor(Math.random() * possibleNumber.length)];
+}
+
+function getRandomSpecial() {
+  var possibleSpecialCharacter = "~!@#$%^&*()_-+={}[]<>?";
+  return possibleSpecialCharacter[Math.floor(Math.random() * possibleSpecialCharacter.length)];
+}
+
+// Console log to check
+console.log(getRandomLower());
+console.log(getRandomUpper());
+console.log(getRandomNumber());
+console.log(getRandomSpecial());
+
+// Function to get a valid number from user
+function getCharacterAmount() {
+  var charactersNo = parseInt(prompt("  To generate a password: \n1. Provide a number of how many characters you would like your password to be of.\n 2. ------The lenght: at least 8 characters and no more than 128 characters------"));
+
+  while (charactersNo < 8 || charactersNo > 128 || isNaN(charactersNo)) {
+    alert("   ATTENTION!!! \n------Must be a number between 8-128------");
+    charactersNo = parseInt(prompt("Provide a number for how many characters of generated PASSWORD \n!!! Make sure to choose one between 8-128")); 
+  }
+  return charactersNo;
+  //_____________How to return when user cancel it...___________
+  // if (charactersNo != null) {
+  //   alert("Alright, feel free to click -----Generate Password----- when ready.");
+  // } return;
+  
+}
+
+//Main function that will generate the PASSWORD
+function generatePassword() {
+  var passwordLength = getCharacterAmount();
+
+  var password = "";
+
+  //Ask user what type of characters to be used for the generated password
+  var withLower = confirm("     ----lowercase---- \nDo you like your password to include  ---lowercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+  var withUpper = confirm("     ----UPPERCASE---- \nDo you like your password to include  ---uppercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+  var withNumbers = confirm("     ----Numbers---- \nDo you like your password to include  ---numeric---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+  var withSymbols = confirm("      ----Symbols---- \nDo you like your password to include  ---Symbols/Special characters---  ? \nClick 'OK - for YES' and 'Cancel - for No'");
+
+  //If user do not select any type of characters to be used
+  while (!withLower && !withUpper && !withNumbers && !withSymbols) {
+    alert("         ATTENTION \n---None of the character type selected--- \n !!!Try again and select at least one character Type.");
+    withLower = confirm("         ----lowercase---- \nClick 'OK - for YES' and 'Cancel - for No'");
+    withUpper = confirm("         ----UPPERCASE---- \nClick 'OK - for YES' and 'Cancel - for No'");
+    withNumbers = confirm("         ----Numbers---- \nClick 'OK - for YES' and 'Cancel - for No'");
+    withSymbols = confirm("          ----Symbols---- \nClick 'OK - for YES' and 'Cancel - for No'");
+  }
+
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // 
+//   if (charactersNo === "") {
+//     alert(" ATTN \nMust be a number between 8-128.")
+//     getCharacterTypes();
+//   } else if (charactersNo) {
+//     var withLower = confirm("     ----lowercase---- \nDo you like your password to include  ---lowercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+//     var withUpper = confirm("     ----UPPERCASE---- \nDo you like your password to include  ---uppercase---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+//     var withNumbers = confirm("     ----Numbers---- \nDo you like your password to include  ---numeric---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
+//     var withSymbols = confirm("      ----Symbols---- \nDo you like your password to include  ---Symbols/Special characters---  ? \nClick 'OK - for YES' and 'Cancel - for No'");
+  
+//   } else {
+//     alert("  Canceled/Wrong character: \n1. Try again by clicking 'GENERATE PASSWORD' \n2. Make sure to enter a number between: 8 - 128 next time.")
+//   }
+
+//   var passwordOptions = {
+//     lower: withLower,
+//     upper: withUpper,
+//     numbers: withNumbers,
+//     symbol: withSymbols,
+//     length: charactersNo,
+//   };
+//   return passwordOptions;
+
+
+// getCharacterTypes();
+
+
+// function generatePassword() {
+//    //initial variable values
+//    var password = "";
+//    var characterLength;
+//    var lowercase;
+//    var uppercase;
+//    var numeric;
+//    var specialCharacter;
+ 
+
+
+// }
