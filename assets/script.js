@@ -18,35 +18,23 @@ var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var number = "0123456789";
 var specialCharacter = "~!@#$%^&*()_-+={}[]<>?";
 
-
-//---for my Understanding--- Math.floor(Math.random() * )
-function getRandom(ourcase) {
-  var index = Math.floor(Math.random() * ourcase.length);
-  var randomCharacter = ourcase[index];
-  return randomCharacter;
-}
-
-// Console log to check
-console.log(getRandom(lowercase));
-console.log(getRandom(uppercase));
-console.log(getRandom(number));
-console.log(getRandom(specialCharacter));
-
-// Function to get a valid number from user
+// ---Function--- to get a valid number from user
 function getCharacterAmount() {
   var charactersNo = parseInt(prompt("  To generate a password: \n1. Provide a number of how many characters you would like your password to be of.\n 2. ------The lenght: at least 8 characters and no more than 128 characters------"));
+  console.log(charactersNo);
 
+  //When the entered value doesn't meet required criteria.
   while (charactersNo < 8 || charactersNo > 128 || isNaN(charactersNo)) {
     alert("   ATTENTION!!! \n------Must be a number between 8-128------");
     charactersNo = parseInt(prompt("Provide a number for how many characters of generated PASSWORD \n!!! Make sure to choose one between 8-128")); 
   }
   return charactersNo;
+  console.log(charactersNo);
 }
 
-//Main function that will generate the PASSWORD
+//---Main function--- that will generate the PASSWORD
 function generatePassword() {
   var charactersNo = getCharacterAmount();
-
   var password = "";
 
   //Ask user what type of characters to be used for the generated password
@@ -55,7 +43,7 @@ function generatePassword() {
   var withNumbers = confirm("     ----Numbers---- \nDo you like your password to include  ---numeric---   characters? \nClick 'OK - for YES' and 'Cancel - for No'");
   var withSymbols = confirm("      ----Symbols---- \nDo you like your password to include  ---Symbols/Special characters---  ? \nClick 'OK - for YES' and 'Cancel - for No'");
 
-  //If user do not select any type of characters to be used
+  //---Alert--- If the user didn't select any type of characters to be used for the generated password
   while (!withLower && !withUpper && !withNumbers && !withSymbols) {
     alert("         ATTENTION \n---None of the character type selected--- \n !!!Try again and select at least one character Type.");
     withLower = confirm("         ----lowercase---- \nClick 'OK - for YES' and 'Cancel - for No'");
@@ -85,12 +73,12 @@ function generatePassword() {
     console.log(availCharacters);
   }
 
-  var password = "";
-
+  //---Math.floor(Math.random())--- concept used to get the desired length of password
   for (var i = 0; i < charactersNo; i++) {
     var randomIndex = Math.floor(Math.random() * availCharacters.length);
     password += availCharacters[randomIndex];
   }
-  
+  alert("Generated Password below:\n" + password);
   return password;
+  console.log(password);
 } 
