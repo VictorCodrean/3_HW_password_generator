@@ -30,6 +30,10 @@ function getCharacterAmount() {
   }
   return charactersNo;
   console.log(charactersNo);
+
+  // if (charactersNo = false) {
+  //   return;
+  // }
 }
 
 //---Main function--- that will generate the PASSWORD
